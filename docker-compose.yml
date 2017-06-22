@@ -1,7 +1,12 @@
 version: '3'
 services:
-  ui:
-    container_name: ui
-    build: ./ui
+#  ui:
+#    container_name: ui
+#    build: ./ui
+#    ports:
+#     - "8080:8080"
+  elasticsearch:
+    image: elasticsearch
+    hostname: localhost
     ports:
-     - "8080:8080"
+      - '9200:9200'
