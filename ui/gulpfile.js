@@ -1,21 +1,22 @@
 'use strict';
 
-let gulp = require('gulp');  // Base gulp package
-let babelify = require('babelify'); // Used to convert ES6 & JSX to ES5
-let browserify = require('browserify'); // Providers "require" support, CommonJS
-let notify = require('gulp-notify'); // Provides notification to both the console and Growel
-let rename = require('gulp-rename'); // Rename sources
-let sourcemaps = require('gulp-sourcemaps'); // Provide external sourcemap files
-let gutil = require('gulp-util'); // Provides gulp utilities, including logging and beep
-let chalk = require('chalk'); // Allows for coloring for logging
-let source = require('vinyl-source-stream'); // Vinyl stream support
-let buffer = require('vinyl-buffer'); // Vinyl stream support
-let watchify = require('watchify'); // Watchify for source changes
-let merge = require('utils-merge'); // Object merge tool
-let duration = require('gulp-duration'); // Time aspects of your gulp process
-let connect = require('gulp-connect');  // Local server
-let sass = require('gulp-sass'); // Compile sass
-let spritesmith = require('gulp.spritesmith');  // Sprite generator
+const gulp = require('gulp');  // Base gulp package
+const babelify = require('babelify'); // Used to convert ES6 & JSX to ES5
+const browserify = require('browserify'); // Providers "require" support, CommonJS
+const notify = require('gulp-notify'); // Provides notification to both the console and Growel
+const rename = require('gulp-rename'); // Rename sources
+const sourcemaps = require('gulp-sourcemaps'); // Provide external sourcemap files
+const gutil = require('gulp-util'); // Provides gulp utilities, including logging and beep
+const chalk = require('chalk'); // Allows for coloring for logging
+const source = require('vinyl-source-stream'); // Vinyl stream support
+const buffer = require('vinyl-buffer'); // Vinyl stream support
+const watchify = require('watchify'); // Watchify for source changes
+const merge = require('utils-merge'); // Object merge tool
+const duration = require('gulp-duration'); // Time aspects of your gulp process
+const connect = require('gulp-connect');  // Local server
+const sass = require('gulp-sass'); // Compile sass
+const spritesmith = require('gulp.spritesmith');  // Sprite generator
+const sassGlob = require('gulp-sass-glob'); // Global sass injector
 
 // Configuration for Gulp
 let config = {
@@ -88,9 +89,24 @@ let bundle = (bundler) => {
 gulp.task('sass', ['sprite'], () => {
 	return gulp.src(config.scss.src)
 		.pipe(sourcemaps.init({loadMaps: true}))
+		.pipe(sassGlob())
 		.pipe(sass().on('error', sass.logError))
 		.pipe(sourcemaps.write('./map'))
 		.pipe(gulp.dest(config.scss.outputDir));
+});
+
+// Extras
+gulp.task('extras', () => {
+	gulp.src(['!src/components/**/',
+		'!src/components/',
+		'!src/scss/',
+		'!src/scss/**',
+		'!src/index.html',
+		'!src/main.js',
+		'!src/images/sprites/**',
+		'!src/images/sprites/',
+		'src/**/*'])
+		.pipe(gulp.dest('dist'))
 });
 
 // Make sprite
@@ -111,8 +127,11 @@ gulp.task('sprite', () => {
 		// Deliver CSS to `./` to be imported by `index.scss`
 		spriteData.css.pipe(gulp.dest('./src/scss/'));
 	}
-)
-;
+);
+
+gulp.task('html', () => {
+	gulp.src('src/*.html').pipe(gulp.dest('dist'));
+});
 
 // Localhost task
 gulp.task('connect', () => {
@@ -123,8 +142,8 @@ gulp.task('connect', () => {
 });
 
 // Gulp task for build
-gulp.task('default', ['sass', 'connect'], () => {
-	gulp.src('src/index.html').pipe(gulp.dest('dist'));
+gulp.task('default', ['sass', 'connect', 'extras','html'], () => {
+
 	// Merge in default watchify args with browserify arguments
 	let args = merge(watchify.args, {debug: true});
 	// Browserify
@@ -143,4 +162,5 @@ gulp.task('default', ['sass', 'connect'], () => {
 	gulp.watch(config.scss.watch, ['sass']);
 	// Watch sprite images changes
 	gulp.watch(config.sprite.src, ['sprite']);
+	gulp.watch('src/*.html', ['html']);
 });
