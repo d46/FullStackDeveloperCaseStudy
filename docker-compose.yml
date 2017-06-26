@@ -10,3 +10,10 @@ services:
     hostname: localhost
     ports:
       - '9200:9200'
+
+  rabbitmq:
+    image: rabbitmq
+    hostname: localhost
+    ports:
+      - '15672:15672'
+      - '5672:5672'

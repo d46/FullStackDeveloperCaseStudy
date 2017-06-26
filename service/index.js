@@ -1,15 +1,18 @@
-var elasticsearch = require('elasticsearch');
-var client = new elasticsearch.Client({
-    host: 'localhost:9200',
-    log: 'trace'
-});
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const clients = require('./clients');
+const searchController = require('./controllers/SearchController');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
-client.ping({
-    requestTimeout: 30000,
-}, function (error) {
-    if (error) {
-        console.error('elasticsearch cluster is down!');
-    } else {
-        console.log('All is well');
-    }
+// Routes
+app.get('/search/quick', searchController);
+
+//Run all client states
+clients.run()
+    .then(() =>{
+    app.listen(3000, () => {
+        console.log('Port 3000!')
+    })
 });
