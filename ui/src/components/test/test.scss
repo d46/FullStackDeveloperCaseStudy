@@ -1,8 +1,18 @@
- $icon-bag-group: ('icon-bag', $bag, $bag-2x, );
- .test{
-	 .icon-bag {
-		 @include retina-sprite($icon-bag-group);
-	 }
- }
+/*------------------------------------*\
+    #test
+\*------------------------------------*/
 
+/*<-- MOBILE FIRST -->*/
+.test {
+	.icon-bag {
+		@include retina-sprite($bag-group);
+	}
+}
+
+/*<-- DESKTOP -->*/
+@media (min-width: $screen-sm-min) {
+	.test{
+
+	}
+}
 
