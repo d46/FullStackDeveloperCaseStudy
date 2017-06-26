@@ -4,6 +4,10 @@
 
 /*<-- MOBILE FIRST -->*/
 .navigation-alpha {
+	float: left;
+	margin-top: 30px;
+	margin-left: 15px;
+
 	.mobile-menu {
 		display: inline-block;
 		.icon-bag {
@@ -20,7 +24,30 @@
 /*<-- DESKTOP -->*/
 @media (min-width: $screen-sm-min) {
 	.navigation-alpha {
+		float: inherit;
+		margin-top: 70px;
+		margin-left: initial;
+		width: 100%;
 
+		> ul {
+			display: block;
+			width: 100%;
+			text-align: center;
+			li{
+				display: inline-block;
+				margin-right: 20px;
+				&:last-child{
+					margin-right: 0px;
+				}
+				a{
+					font-size: 17px;
+					color: #4c4b4c;
+				}
+			}
+		}
+		.mobile-menu {
+			display: none;
+		}
 	}
 }
 

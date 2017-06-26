@@ -92,6 +92,9 @@ gulp.task('sass', ['sprite'], () => {
 		.pipe(sassGlob())
 		.pipe(sass().on('error', sass.logError))
 		.pipe(sourcemaps.write('./map'))
+		.pipe(notify({
+			message: 'Generated file: <%= file.relative %>',
+		}))
 		.pipe(gulp.dest(config.scss.outputDir));
 });
 
@@ -130,7 +133,11 @@ gulp.task('sprite', () => {
 );
 
 gulp.task('html', () => {
-	gulp.src('src/*.html').pipe(gulp.dest('dist'));
+	gulp.src('src/*.html')
+		.pipe(notify({
+			message: 'Generated file: <%= file.relative %>',
+		}))
+		.pipe(gulp.dest('dist'));
 });
 
 // Localhost task

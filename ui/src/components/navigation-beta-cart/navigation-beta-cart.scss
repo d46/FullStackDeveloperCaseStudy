@@ -1,0 +1,22 @@
+/*------------------------------------*\
+    #navigation-beta-cart
+\*------------------------------------*/
+
+/*<-- MOBILE FIRST -->*/
+.navigation-beta-cart {
+	float: right;
+	margin-top: 30px;
+	margin-right: 15px;
+	.icon-bag {
+		@include retina-sprite($bag-group);
+	}
+}
+
+/*<-- DESKTOP -->*/
+@media (min-width: $screen-sm-min) {
+	.navigation-beta-cart{
+		display: none;
+	}
+}
+
+

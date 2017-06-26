@@ -1,4 +1,9 @@
 @import "variables";
+@import "utils";
 @import "sprites";
 @import "../components/**/*.scss";
 
+#root{
+	max-width: 960px;
+	margin: 0 auto;
+}

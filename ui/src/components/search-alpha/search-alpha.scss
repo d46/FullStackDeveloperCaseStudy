@@ -1,0 +1,47 @@
+/*------------------------------------*\
+    #search-alpha
+\*------------------------------------*/
+
+/*<-- MOBILE FIRST -->*/
+.search-alpha {
+	float: left;
+	width: 100%;
+	margin-top: 30px;
+	.icon-search {
+		@include retina-sprite($search-group);
+	}
+	.inner-container{
+		max-width: 300px;
+		margin: 0 auto;
+		overflow: hidden;
+		position: relative;
+	}
+	input[type="text"]{
+		float: left;
+		width: 90%;
+		height: 30px;
+		padding: 0px 5%;
+		margin: 0px;
+		border: none;
+		border-bottom: 1px solid #bdbdbd;
+	}
+	.search{
+		position: absolute;
+		right: 5px;
+		top: 5px;
+	}
+}
+
+/*<-- DESKTOP -->*/
+@media (min-width: $screen-sm-min) {
+	.search-alpha{
+		.dropdown{
+			display: none;
+			&.on{
+				display: inline-block;
+			}
+		}
+
+	}
+}
+
