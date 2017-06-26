@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Test from "./components/test/test";
+import LayoutAlpha from "./components/layout-alpha/layout-alpha";
 
 ReactDOM.render(
-	<Test>a</Test>,
+	<LayoutAlpha/>,
     document.getElementById('root')
 );
 

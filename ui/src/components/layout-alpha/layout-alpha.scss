@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    #layout-alpha
+\*------------------------------------*/
+
+/*<-- MOBILE FIRST -->*/
+.layout-alpha {
+	.icon-bag {
+		@include retina-sprite($bag-group);
+	}
+}
+
+/*<-- DESKTOP -->*/
+@media (min-width: $screen-sm-min) {
+	.layout-alpha{
+
+	}
+}
+

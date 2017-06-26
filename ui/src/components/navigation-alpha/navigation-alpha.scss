@@ -1,0 +1,26 @@
+/*------------------------------------*\
+    #navigation-alpha
+\*------------------------------------*/
+
+/*<-- MOBILE FIRST -->*/
+.navigation-alpha {
+	.mobile-menu {
+		display: inline-block;
+		.icon-bag {
+			@include retina-sprite($menu-group);
+			display: inline-block;
+		}
+	}
+
+	> ul {
+		display: none;
+	}
+}
+
+/*<-- DESKTOP -->*/
+@media (min-width: $screen-sm-min) {
+	.navigation-alpha {
+
+	}
+}
+

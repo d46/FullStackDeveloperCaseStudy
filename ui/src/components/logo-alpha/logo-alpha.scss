@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    #logo-alpha
+\*------------------------------------*/
+
+/*<-- MOBILE FIRST -->*/
+.logo-alpha {
+	img{
+		width: 140px;
+	}
+}
+
+/*<-- DESKTOP -->*/
+@media (min-width: $screen-sm-min) {
+	.logo-alpha{
+
+	}
+}
+
