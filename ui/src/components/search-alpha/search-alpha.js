@@ -51,7 +51,7 @@ class SearchAlpha extends Component {
 		if (this.request) {
 			this.request.abort()
 		}
-		if (this.state.keyword.length >= 3) {
+		if (this.state.keyword.length >= 3 && this.state.windowWidth > 959) {
 			this.request = $.ajax(`http://localhost:3000/search/quick?keyword=${this.state.keyword}`)
 				.done((request) => {
 					this.setState({
