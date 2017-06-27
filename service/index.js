@@ -6,6 +6,12 @@ const searchController = require('./controllers/SearchController');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://ui:8080");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // Routes
 app.get('/search/quick', searchController);
 

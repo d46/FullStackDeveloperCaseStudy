@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
+import $ from 'jquery';
 
 class SearchAlpha extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			windowWidth: props.windowWidth,
-			keyword: ''
+			keyword: '',
+			requestData: []
 		};
 
+		this.request = null;
 		this.handleChange = this.handleChange.bind(this);
 		this.search = this.search.bind(this);
 	}
@@ -18,8 +21,16 @@ class SearchAlpha extends Component {
 				<div className="inner-container">
 					<input type="text" value={this.state.keyword} placeholder="Hello, I’m looking for…"
 						   onChange={this.handleChange}/>
-					<div className="dropdown">
-
+					<div className="dropdown" style={this.state.keyword.length >= 3 ? {} : { display: 'none' }}>
+						{this.state.requestData.map((item, index) => {
+							return (
+								<li key={index}>
+									<a href="#">
+										{item.name}
+									</a>
+								</li>
+							)
+						})}
 					</div>
 					<a href="#" className="search">
 						<div className="icon-search">
@@ -37,8 +48,16 @@ class SearchAlpha extends Component {
 	}
 
 	search() {
-		if(this.state.keyword.length >= 3 ){
-
+		if (this.request) {
+			this.request.abort()
+		}
+		if (this.state.keyword.length >= 3) {
+			this.request = $.ajax(`http://localhost:3000/search/quick?keyword=${this.state.keyword}`)
+				.done((request) => {
+					this.setState({
+						requestData:request
+					});
+				});
 		}
 	}
 }

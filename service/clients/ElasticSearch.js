@@ -2,7 +2,7 @@ var elasticsearch = require('elasticsearch');
 
 class ElasticSearchClient {
 
-    init(host = "localhost:9200", indexName = "roo") {
+    init(host = "elasticsearchhost:9200", indexName = "roo") {
         // Defaults
         this.indexName = indexName;
         this.client = new elasticsearch.Client({

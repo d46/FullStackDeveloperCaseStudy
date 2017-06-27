@@ -13,8 +13,31 @@
 	.inner-container{
 		max-width: 300px;
 		margin: 0 auto;
-		overflow: hidden;
 		position: relative;
+		.dropdown{
+			position: absolute;
+			top: 31px;
+			left: 0px;
+			z-index: 1;
+			background: #FFF;
+			width: 298px;
+			border-right: 1px solid #bdbdbd;
+			border-left: 1px solid #bdbdbd;
+			li{
+				list-style: none;
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				&:hover{
+					background: #bdbdbd;
+				}
+				a{
+					color: #000000;
+					font-size: 12px;
+					display: block;
+					padding: 15px 10px;
+				}
+			}
+		}
 	}
 	input[type="text"]{
 		float: left;
@@ -36,10 +59,7 @@
 @media (min-width: $screen-sm-min) {
 	.search-alpha{
 		.dropdown{
-			display: none;
-			&.on{
-				display: inline-block;
-			}
+
 		}
 
 	}

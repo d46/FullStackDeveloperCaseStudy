@@ -1,19 +1,36 @@
 version: '3'
 services:
-#  ui:
-#    container_name: ui
-#    build: ./ui
-#    ports:
-#     - "8080:8080"
+  ui:
+    container_name: ui
+    build: ./ui
+    hostname: localhost
+    ports:
+     - "8080:8080"
+    links:
+     - service:localhost
+    command: ["./wait-for.sh", "localhost:3000", "--",'gulp']
+
   elasticsearch:
     image: elasticsearch
-    hostname: localhost
+    hostname: elasticsearchhost
     ports:
       - '9200:9200'
 
   rabbitmq:
     image: rabbitmq
-    hostname: localhost
+    hostname: rabbitmqhost
     ports:
       - '15672:15672'
       - '5672:5672'
+  service:
+    container_name: service
+    build: ./service
+    hostname: localhost
+    ports:
+     - "3000:3000"
+    command: ["./wait-for.sh", "rabbitmqhost:5672", "--",
+              "./wait-for.sh", "elasticsearchhost:9200", "--",
+              "node index.js"]
+    links:
+      - rabbitmq:rabbitmqhost
+      - elasticsearch:elasticsearchhost
